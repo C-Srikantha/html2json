@@ -1,0 +1,10 @@
+github.com/gorilla/mux v1.8.0 h1:i40aqfkR1h2SlN9hojwV5ZA91wcXFOvkdNIeFDP5koI=
+github.com/gorilla/mux v1.8.0/go.mod h1:DVbg23sWSpFRCP0SfiEN6jmj59UnW/n46BH5rLB71So=
+github.com/josharian/intern v1.0.0 h1:vlS4z54oSdjm0bgjRigI+G1HpF+tI+9rE5LLzOg8HmY=
+github.com/josharian/intern v1.0.0/go.mod h1:5DoeVV0s6jJacbCEi61lwdGj/aVlrQvzHFFd8Hwg//Y=
+github.com/mailru/easyjson v0.7.7 h1:UGYAvKxe3sBsEDzO8ZeWOSlIQfWFlxbzLZe7hwFURr0=
+github.com/mailru/easyjson v0.7.7/go.mod h1:xzfreul335JAWq5oZzymOObrkdz5UnU4kGfJJLY9Nlc=
+github.com/v-grabko1999/go-html2json v0.0.0-20200731144517-44e807b8bdbc h1:2nHRSndmkEEH5D4IuqAespMlrMDQ8pb5zuBVgPgeP4s=
+github.com/v-grabko1999/go-html2json v0.0.0-20200731144517-44e807b8bdbc/go.mod h1:jb/ZbKn9XiGoA5eSZvvHJsyIIKv88/BLhLvrC5M4LOQ=
+golang.org/x/net v0.0.0-20211118161319-6a13c67c3ce4 h1:DZshvxDdVoeKIbudAdFEKi+f70l51luSy/7b76ibTY0=
+golang.org/x/net v0.0.0-20211118161319-6a13c67c3ce4/go.mod h1:9nx3DQGgdP8bBQD5qxJ1jj9UTztislL4KSBs9R2vV5Y=
