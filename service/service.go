@@ -2,15 +2,15 @@ package service
 
 import (
 	"encoding/csv"
-	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"strings"
 
+	"github.com/anaskhan96/soup"
+	"github.com/tidwall/gjson"
 	ht "github.com/v-grabko1999/go-html2json"
-	"golang.org/x/net/html/atom"
 )
 
 var result []byte
@@ -21,6 +21,7 @@ type Htmlread struct {
 	Text    string
 	Element []map[string]interface{}
 }
+
 type Detail struct {
 	General_meaning    string
 	Causes             string
@@ -32,13 +33,14 @@ type Detail struct {
 
 var det Detail
 var id = "p0110"
+var m1 = []map[string]interface{}{}
+var str []string
 
 //convertion of html to json
 func HtmlToJson(w http.ResponseWriter, r *http.Request) {
-	var hold []Htmlread
+	//var hold []Htmlread
 
 	//var count int = 0
-	var str []string
 
 	resp, err := http.Get("https://www.autoblog.com/2016/03/11/" + id + "-obd-ii-trouble-code-intake-air-temperature-sensor-circui/") //passing url and returns http response
 	if err != nil {
@@ -61,7 +63,7 @@ func HtmlToJson(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Fprintln(w, string(obj))
 
-	obj1, _ := d.ByClass("post-body")
+	/*obj1, _ := d.ByClass("post-body")
 	for _, i := range obj1 {
 
 		obj2, _ := i.ByTag(atom.P)
@@ -97,7 +99,20 @@ func HtmlToJson(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	}*/
-	writefile()
+	obj1, _ := d.ByClass("post-body")
+	for _, i := range obj1 {
+		result, _ = i.ToJSON()
+		//json.Unmarshal(result, &m1)
+
+	}
+
+	m := gjson.Get(string(result[1:len(result)-1]), "elements.1.text")
+	//fmt.Println(string(result[1 : len(result)-1]))
+	fmt.Println(m)
+
+	task(string(result))
+
+	//writefile()
 }
 
 func writefile() {
@@ -107,5 +122,26 @@ func writefile() {
 	defer writefile.Flush()
 	row := []string{id, det.General_meaning, det.Causes, det.Symptoms, det.Mechanic_diagnosis, det.Severity_level, det.Suggested_repairs}
 	_ = writefile.Write(row)
+
+}
+func task(res string) {
+	resp, err := soup.Get("https://www.autoblog.com/2016/03/11/" + id + "-obd-ii-trouble-code-intake-air-temperature-sensor-circui/") //passing url and returns http response
+	if err != nil {
+		fmt.Println(err)
+	}
+	result := soup.HTMLParse(resp)
+	links := result.Find("div", "class", "post-body")
+	res1 := links.Children()
+	res2 := links.Find("ul").FindNextSibling()
+		fmt.Println(link.Text())
+	}
+	fmt.Println(res2.Text())
+
+	/*det.General_meaning = str[1]
+	det.Causes = str[2] + "," + str[3] + "," + str[4] + "," + str[5] + "," + str[6] + "," + str[7]
+	det.Symptoms = str[8]
+	det.Mechanic_diagnosis = str[9]
+	det.Severity_level = str[11] + "," + str[12]
+	det.Suggested_repairs = str[13] + "," + str[14] + "," + str[15]*/
 
 }
